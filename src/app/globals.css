@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
+  --color-deep-blue: #004967;
+  --color-bright-blue: #0179c5;
+  --color-base-white: #f9f9f9;
+  
+  --color-primary: #004967;
+  --color-secondary: #0179c5;
+  --color-border: var(--border);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #f9f9f9;
+  --foreground: #004967;
+  --card: #ffffff;
+  --card-foreground: #004967;
+  --popover: #ffffff;
+  --popover-foreground: #004967;
+  --primary: #004967;
+  --primary-foreground: #f9f9f9;
+  --secondary: #0179c5;
+  --secondary-foreground: #f9f9f9;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #0179c5;
+  --accent-foreground: #f9f9f9;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #004967;
+}
+
+.dark {
+  --background: #001a25;
+  --foreground: #f9f9f9;
+  --card: #002a3a;
+  --card-foreground: #f9f9f9;
+  --popover: #002a3a;
+  --popover-foreground: #f9f9f9;
+  --primary: #0179c5;
+  --primary-foreground: #f9f9f9;
+  --secondary: #004967;
+  --secondary-foreground: #f9f9f9;
+  --muted: #003a50;
+  --muted-foreground: #94a3b8;
+  --accent: #0179c5;
+  --accent-foreground: #f9f9f9;
+  --border: #003a50;
+  --input: #003a50;
+  --ring: #0179c5;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(at 0% 0%, rgba(1, 121, 197, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(0, 73, 103, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(1, 121, 197, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(0, 73, 103, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+@utility glass-navbar {
+  @apply bg-background/60 backdrop-blur-xl border border-white/10 shadow-2xl;
+}
+
+@utility glass-card {
+  @apply bg-white/40 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-xl;
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-deep-blue to-bright-blue dark:from-bright-blue dark:to-white;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
