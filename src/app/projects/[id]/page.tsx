@@ -39,7 +39,10 @@ export default function ProjectDetailPage() {
         .eq("id", id)
         .single();
         
-      if (!error && data) {
+      if (error) {
+        console.error("Error fetching project detail:", error);
+      }
+      if (data) {
         setProject(data);
       }
       setLoading(false);

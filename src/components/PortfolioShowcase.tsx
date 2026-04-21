@@ -145,7 +145,10 @@ export default function PortfolioShowcase() {
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (!error && data) {
+    if (error) {
+      console.error("Error fetching projects:", error);
+    }
+    if (data) {
       setProjects(data);
     }
     setLoadingProjects(false);
@@ -158,7 +161,10 @@ export default function PortfolioShowcase() {
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (!error && data) {
+    if (error) {
+      console.error("Error fetching certificates:", error);
+    }
+    if (data) {
       setCertificates(data);
     }
     setLoadingCerts(false);
@@ -168,42 +174,44 @@ export default function PortfolioShowcase() {
     <section id="showcase" className={cn("pt-24 relative overflow-hidden bg-background transition-all duration-500", activeTab === 'techstack' ? 'pb-0' : 'pb-24')}>
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-black mb-4 text-deep-blue dark:text-white">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-deep-blue dark:text-white leading-[1.1]">
             Portfolio <span className="text-gradient">Showcase</span>
           </h2>
-          <p className="text-deep-blue/70 dark:text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-medium">
+          <p className="text-deep-blue/70 dark:text-gray-300 max-w-2xl mx-auto text-base md:text-lg leading-relaxed font-medium px-4">
             Explore my journey through projects, certifications, and technical expertise.
             Each section represents a milestone in my continuous learning path.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex justify-center mb-16">
-          <div className="inline-flex p-1.5 bg-gray-100/80 dark:bg-white/5 backdrop-blur-md rounded-[2rem] border border-gray-200 dark:border-white/10 shadow-sm">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={cn(
-                  "relative flex items-center gap-2 px-8 py-3.5 rounded-[1.5rem] text-sm font-black transition-all duration-500",
-                  activeTab === tab.id
-                    ? "text-white"
-                    : "text-muted-foreground hover:text-deep-blue dark:hover:text-white"
-                )}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="activeTabPill"
-                    className="absolute inset-0 bg-bright-blue shadow-lg"
-                    style={{ borderRadius: "1.5rem" }}
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.icon}</span>
-                <span className="relative z-10">{tab.label}</span>
-              </button>
-            ))}
+        <div className="flex justify-center mb-10 md:mb-16">
+          <div className="flex items-center p-1.5 bg-gray-100/80 dark:bg-white/5 backdrop-blur-md rounded-2xl md:rounded-[2rem] border border-gray-200 dark:border-white/10 shadow-sm max-w-full overflow-x-auto no-scrollbar">
+            <div className="flex items-center gap-1 md:gap-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={cn(
+                    "relative flex items-center gap-2 px-4 md:px-8 py-2.5 md:py-3.5 rounded-xl md:rounded-[1.5rem] text-xs md:text-sm font-black transition-all duration-500 whitespace-nowrap shrink-0",
+                    activeTab === tab.id
+                      ? "text-white"
+                      : "text-muted-foreground hover:text-deep-blue dark:hover:text-white"
+                  )}
+                >
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="activeTabPill"
+                      className="absolute inset-0 bg-bright-blue shadow-lg shadow-bright-blue/20"
+                      style={{ borderRadius: "inherit" }}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  <span className="relative z-10 scale-90 md:scale-100">{tab.icon}</span>
+                  <span className="relative z-10">{tab.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -233,7 +241,7 @@ export default function PortfolioShowcase() {
                     </div>
                   ) : (
                     <>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                         {projects.map((project, i) => (
                           <motion.div
                             key={project.id}
@@ -258,7 +266,7 @@ export default function PortfolioShowcase() {
                               <div className="absolute inset-0 bg-gradient-to-t from-deep-blue/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
 
-                            <div className="p-8 flex flex-col flex-grow">
+                            <div className="p-6 md:p-8 flex flex-col flex-grow">
                               <h3 className="text-xl sm:text-2xl font-black text-deep-blue dark:text-white mb-3 group-hover:text-bright-blue transition-colors">
                                 {project.title}
                               </h3>
@@ -312,7 +320,7 @@ export default function PortfolioShowcase() {
                       <p className="text-muted-foreground">Prestasi dan sertifikasi akan ditampilkan di sini.</p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                       {certificates.map((cert, i) => (
                         <motion.div
                           key={cert.id}
@@ -322,7 +330,7 @@ export default function PortfolioShowcase() {
                           className="group bg-white dark:bg-white/5 p-3 rounded-[2rem] border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl transition-all cursor-pointer"
                           onClick={() => cert.image ? setSelectedCert(cert) : null}
                         >
-                          <div className="aspect-[4/3] relative rounded-[1.5rem] overflow-hidden mb-4 bg-gray-50 flex items-center justify-center">
+                          <div className="aspect-[4/3] relative rounded-xl md:rounded-[1.5rem] overflow-hidden mb-3 md:mb-4 bg-gray-50 flex items-center justify-center">
                             {cert.image ? (
                               <>
                                 <img
@@ -356,7 +364,7 @@ export default function PortfolioShowcase() {
               )}
 
               {activeTab === "techstack" && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
                   {techStack.map((tech, i) => (
                     <motion.div
                       key={tech.name}
@@ -364,9 +372,9 @@ export default function PortfolioShowcase() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.03 }}
                       whileHover={{ y: -5 }}
-                      className="bg-white dark:bg-white/5 p-6 rounded-[2rem] border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-bright-blue/30 transition-all flex flex-col items-center gap-4 group"
+                      className="bg-white dark:bg-white/5 p-4 md:p-6 rounded-2xl md:rounded-[2rem] border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-bright-blue/30 transition-all flex flex-col items-center gap-3 md:gap-4 group"
                     >
-                      <div className="w-16 h-16 flex items-center justify-center p-2">
+                      <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center p-1 md:p-2">
                         <img
                           src={tech.iconPath}
                           alt={tech.name}
