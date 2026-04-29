@@ -87,7 +87,7 @@ export default function About() {
             <div className="flex flex-wrap items-center gap-4">
               {/* Download CV */}
               <a
-                href="/Mardhyah Fathania Izzati_Daftarriwayathidup.pdf"
+                href="/Mardhyah Fathania Izzati-CV.pdf"
                 download
                 className="px-8 py-4 bg-bright-blue text-white rounded-2xl font-black flex items-center gap-2 shadow-lg shadow-bright-blue/20 hover:scale-105 transition-all"
               >
